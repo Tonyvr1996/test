@@ -1,0 +1,73 @@
+<div class="container-fluid" id="container-height">
+	<app-menu></app-menu>
+	<div class="container-fluid">
+		<div class="col-md-12">
+			<h1 class="text-center">Agregar Usuario</h1>
+		</div>
+		<br>
+		<form>
+			<div class="form-row">
+				<div class="col-md-6 mb-4" [class.has-error]="nombres.invalid && nombres.touched">
+					<label for="nombres">Nombres</label>
+          <input type="text" class="form-control" name="nombres" placeholder="Nombres"  [(ngModel)]="usuario.nombres" #nombres="ngModel" required>
+          <span class="help-block" *ngIf="nombres.errors?.required && nombres.touched">
+						Nombres is required
+					  </span>
+				</div>
+				<div class="col-md-6 mb-4" [class.has-error]="apellidos.invalid && apellidos.touched"  [class.has-success]="apellidos.valid">
+					<label for="apellidos">Apellidos*</label>
+					<input type="text" class="form-control" name="apellidos" placeholder="Apellidos" #apellidos="ngModel"  [(ngModel)]="usuario.apellidos" required>
+					<span class="help-block" *ngIf="apellidos.errors?.required && apellidos.touched">
+						Apellidos is required
+					  </span>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-md-6 mb-4" [class.has-error]="cedula.invalid && cedula.touched"  [class.has-success]="cedula.valid">
+					<label for="cedula">CI*</label>
+					<input type="text" class="form-control" name="cedula" placeholder="C.I."  [(ngModel)]="usuario.cedula" #cedula="ngModel" required pattern="^([0-9]){10,10}$">
+					<span class="help-block" *ngIf="cedula.errors?.required && cedula.touched">
+						Cedula is required
+					  </span>
+					  <span class="help-block" *ngIf="cedula.errors?.pattern && email.touched">
+						Cedula no es valida
+					  </span>
+				</div>
+				<div class="col-md-6 mb-4" >
+					<label for="validationDefaultUsername">Email</label>
+					<div class="input-group" [class.has-error]="email.invalid && email.touched"  [class.has-success]="email.valid">
+						<div class="input-group-prepend">
+							<span class="input-group-text" >@</span>
+						</div>
+						<input type="email" [(ngModel)]="usuario.email"  #email="ngModel" class="form-control" name="email" placeholder="Email"  aria-describedby="inputGroupPrepend2" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" required>
+						<span class="help-block" *ngIf="email.errors?.pattern && email.touched">
+							Email is Invalid
+						</span>
+						  <span class="help-block" *ngIf="email.errors?.required && email.touched">
+							Email is required
+						  </span>
+
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-md-6 mb-4">
+					<label for="validationDefault04">Contrase&ntilde;a</label>
+					<input type="password" name="pasword" class="form-control" id="validationDefault04" placeholder="Contrase&ntilde;a" [(ngModel)]="usuario.pasword" #paswordUser="ngModel" required>
+        </div>
+				<div class="col-md-6 mb-4">
+					<label for="phone">Teléfono</label>
+					<input type="text" class="form-control" name="phone" placeholder="Teléfono" #phone="ngModel"  [(ngModel)]="usuario.phone" required>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-md-12">
+					<label for="validationDefault05">Es administrador <input type="checkbox" id="validationDefault05" name="is_admin"></label>
+				</div>
+			</div>
+			<button class="btn btn-primary mx-auto d-flex justify-content-center" type="submit" [disabled] = "(email.invalid && nombres.invalid && apellidos.invalid && cedula.invalid)" (click)="createUser()">Agregar usuario</button>
+		</form>
+	</div>
+</div>
+<app-footer></app-footer>
+<router-outlet></router-outlet>
